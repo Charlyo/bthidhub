@@ -1,6 +1,6 @@
 cd /home/pi/bthidhub/install/on_rpi
 
-sudo echo 0 | sudo tee /sys/class/leds/led0/brightness > /dev/null
+sudo echo 0 | sudo tee /sys/class/leds/ACT/brightness > /dev/null
 
 sudo apt-get update -y | sudo apt-get upgrade -y
 
