@@ -12,7 +12,7 @@ from a1314_message_filter import A1314MessageFilter
 from mouse_g502_message_filter import G502MessageFilter
 from mouse_mx510_message_filter import MX510MessageFilter
 from mouse_message_filter import MouseMessageFilter
-from typing import Dict, List
+from quickstorm_tk_message_filter import QuickStormTKMessageFilter
 from compatibility_device import CompatibilityModeDevice
 
 DEVICES_CONFIG_FILE_NAME = 'devices_config.json'
@@ -25,11 +25,14 @@ FILTERS = [
     {"id":"Mouse", "name":"Mouse"},
     {"id":"A1314", "name":"A1314"},
     {"id":"G502", "name":"G502"},
-    {"id":"MX510", "name":"MX510"}
+    {"id":"MX510", "name":"MX510"},
+    {"id":"QuickStormTK", "name": "QuickStormTK"}
 ]
 
 FILTER_INSTANCES = {
-"Default" : HIDMessageFilter(), "Mouse":MouseMessageFilter(), "A1314":A1314MessageFilter(), "G502":G502MessageFilter(), "MX510":MX510MessageFilter()
+"Default" : HIDMessageFilter(), "Mouse":MouseMessageFilter(),
+    "A1314":A1314MessageFilter(), "G502":G502MessageFilter(),
+    "MX510":MX510MessageFilter(), "QuickStormTK": QuickStormTKMessageFilter()
 }
 
 class HIDDevice:
