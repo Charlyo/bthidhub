@@ -33,7 +33,7 @@ sudo pip3 install aiohttp>=3.8
 sudo pip3 install aiohttp-security
 sudo pip3 install aiohttp-session
 sudo pip3 install watchgod
-sudo pip3 install hid-tools
+sudo pip3 install git+https://gitlab.freedesktop.org/libevdev/hid-tools
 sudo pip3 install pyudev
 sudo pip3 install bitarray
 
