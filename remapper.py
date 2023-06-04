@@ -25,5 +25,4 @@ if __name__ == "__main__":
     web = Web(loop, adapter, bluetooth_devices, hid_devices)
     loop.run_forever()
 
-
-#print(proxy)
+# print(proxy)

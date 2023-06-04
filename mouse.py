@@ -8,8 +8,13 @@ from bluetooth_devices import *
 mouse_raw_device = '/dev/hidraw4'
 mouse_event_device = '/dev/input/event18'
 
+
 class Mouse:
-    def __init__(self, loop: asyncio.AbstractEventLoop, device_registry: BluetoothDeviceRegistry):
+    def __init__(
+        self,
+        loop: asyncio.AbstractEventLoop,
+        device_registry: BluetoothDeviceRegistry
+    ):
         return
         self.dev = evdev.InputDevice(mouse_event_device)
         self.hidraw = os.open(mouse_raw_device, os.O_RDWR | os.O_NONBLOCK)
@@ -24,16 +29,18 @@ class Mouse:
         try:
             msg = os.read(self.hidraw, 2147483647)
         except Exception:
-            #reopen
+            # reopen
             self.loop.remove_reader(self.hidraw)
             os.close(self.hidraw)
             self.hidraw = None
-            asyncio.run_coroutine_threadsafe(self.mouse_reconnect(), loop=self.loop)
+            asyncio.run_coroutine_threadsafe(
+                self.mouse_reconnect(), loop=self.loop)
             return
         if len(msg) != 7:
             return
         msg = b'\xa1\x03' + msg
-        asyncio.run_coroutine_threadsafe(self.device_registry.send_message(msg, True, False), loop=self.loop)
+        asyncio.run_coroutine_threadsafe(
+            self.device_registry.send_message(msg, True, False), loop=self.loop)
 
     async def mouse_reconnect(self):
         while True:
