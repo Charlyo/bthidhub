@@ -8,6 +8,7 @@ from hid_devices import *
 from mouse import *
 from web import Web
 from datetime import datetime, timedelta
+import traceback
 
 DBUS_PATH_PROFILE = '/ruundii/btkb_profile'
 DBUS_PATH_AGENT = '/ruundii/btkb_agent'
@@ -120,6 +121,7 @@ class BluetoothAdapter:
             except Exception:
                 print(
                     "Failed to turn on. Please turn on Bluetooth in the system")
+                traceback.print_exc()
             await asyncio.sleep(2)
 
         self.alias = DEVICE_NAME
@@ -268,7 +270,7 @@ class BluetoothAdapter:
             elif action == 'disconnect':
                 dp.Disconnect()
         except Exception as exc:
-            print(exc)
+            traceback.print_exc()
         self.on_interface_changed()
 
     def remove_device(self, device_path):
@@ -277,7 +279,7 @@ class BluetoothAdapter:
         try:
             self.adapter.RemoveDevice(device_path)
         except Exception as exc:
-            print(exc)
+            traceback.print_exc()
 
     def cancel_pairing(self, device_path):
         if self.adapter is None:
