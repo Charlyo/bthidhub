@@ -3,8 +3,6 @@
 import dasbus.typing as dt
 from dasbus.server.interface import dbus_interface
 from dasbus.connection import SystemMessageBus
-from datetime import datetime, timedelta
-import asyncio
 
 bus = SystemMessageBus()
 
