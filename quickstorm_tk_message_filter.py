@@ -1,4 +1,4 @@
-# Copyright (c) 2020 ruundii. All rights reserved.
+# Copyright (c) 2023 Charlyo. All rights reserved.
 
 
 class QuickStormTKMessageFilter:
@@ -11,4 +11,6 @@ class QuickStormTKMessageFilter:
             return b'\xa1' + msg
 
     def filter_message_from_host(self, msg):
-        return msg[1:]
+        msg = list(msg)
+        msg[1] -= 1
+        return bytes(msg)[1:]
