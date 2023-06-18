@@ -1,6 +1,5 @@
 # Copyright (c) 2020 ruundii. All rights reserved.
 
-from dasbus.connection import SystemMessageBus
 from agent import Agent
 import dasbus.typing as dt
 from hid_devices import *
