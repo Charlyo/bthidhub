@@ -125,6 +125,7 @@ class BluetoothAdapter:
         self.bluetooth_devices.remove_devices()
         self.bluetooth_devices.add_devices()
         self.initialising_adapter = False
+        self.discoverable(True)
 
     def interfaces_added(self, obj_name, interfaces):
         self.on_interface_changed()
