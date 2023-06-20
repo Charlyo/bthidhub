@@ -94,7 +94,7 @@ class Agent(object):
     def RequestAuthorization(self, device: dt.ObjPath):
         print("RequestAuthorization (%s)" % (device))
         auth = ask("Authorize? (yes/no): ")
-        if (auth == "yes"):
+        if auth == "yes":
             return
         raise Exception("Pairing rejected")
 

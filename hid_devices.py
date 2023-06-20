@@ -80,7 +80,9 @@ class HIDDevice:
         tm = self.filter.filter_message_to_host(msg)
         if tm is None or self.device_registry.bluetooth_devices is None:
             return
-        if tm == b'\xff':
+
+        # Scroll lock key in QuickFire TK
+        if tm == b'\xa1\x01\x00\x00G\x00\x00\x00\x00\x00':
             self.device_registry.bluetooth_devices.switch_host()
             self.indicate_switch_with_mouse_movement()
         else:

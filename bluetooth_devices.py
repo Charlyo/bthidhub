@@ -83,8 +83,8 @@ class BluetoothDevice:
             self.sockets_connected = True
             if self.is_host:
                 self.device_registry.connected_hosts.append(self)
-                addr = self.object_path[-17:].replace("_", ":")
-                asyncio.create_task(self.device_registry.switch_to_master(addr))
+                # addr = self.object_path[-17:].replace("_", ":")
+                # asyncio.create_task(self.device_registry.switch_to_master(addr))
             else:
                 self.device_registry.connected_devices.append(self)
             print("Connected sockets for ", self.object_path)
@@ -198,8 +198,7 @@ class BluetoothDeviceRegistry:
 
     def add_devices(self):
         print("Adding all BT devices")
-        om = self.bus.get_proxy(service_name="org.bluez", object_path="/",
-                                interface_name=OBJECT_MANAGER_INTERFACE)
+        om = self.bus.get_proxy(service_name="org.bluez", object_path="/")
         objs = om.GetManagedObjects()
 
         for obj in list(objs):
@@ -214,13 +213,17 @@ class BluetoothDeviceRegistry:
             return
 
         if device_object_path in self.all:
-            print("Device ", device_object_path,
-                  " already exist. Cannot add. Skipping.")
+            print(
+                "Device ",
+                device_object_path,
+                " already exist. Cannot add. Skipping."
+            )
             return
+
+        device_mac = device_object_path.split('hci0/dev_')[-1].replace("_", ":")
         # ensure master role for this connection, otherwise latency of sending
         # packets to hosts may get pretty bad
-        asyncio.ensure_future(
-            self.switch_to_master(device_object_path[-17:].replace("_", ":")))
+        # asyncio.ensure_future(self.switch_to_master(device_mac))
         p = self.bus.get_proxy(
             service_name="org.bluez",
             object_path=device_object_path,
@@ -244,9 +247,10 @@ class BluetoothDeviceRegistry:
             try:
                 success = os.system(
                     "sudo hcitool sr " + device_address + " MASTER") == 0
-                print("hcitool ", device_address, " success:", success)
+                print("hcitool ", device_address, " success: ", success)
             except Exception as exc:
-                print("hcitool ", device_address, " exception:", exc)
+                print("hcitool ", device_address, " exception: ", exc)
+            print("Waiting 5 seconds for switch to master")
             await asyncio.sleep(5)
 
     def is_slave(self, device_address):

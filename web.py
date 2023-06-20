@@ -1,8 +1,7 @@
 # Copyright (c) 2020 ruundii. All rights reserved.
 
-from aiohttp import web,WSMessage
+from aiohttp import web
 from password import *
-import json
 from hid_devices import *
 from bluetooth_devices import *
 import asyncio
@@ -11,9 +10,10 @@ import sys
 import subprocess
 
 from aiohttp_session import SimpleCookieStorage, session_middleware
-from aiohttp_security import check_authorized, \
-    is_anonymous, authorized_userid, remember, forget, \
-    setup as setup_security, SessionIdentityPolicy
+from aiohttp_security import check_authorized
+from aiohttp_security import remember
+from aiohttp_security import setup as setup_security
+from aiohttp_security import SessionIdentityPolicy
 from aiohttp_security.abc import AbstractAuthorizationPolicy
 
 PI_USER = 'pi'
